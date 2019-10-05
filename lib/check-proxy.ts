@@ -61,14 +61,10 @@ export default async function(options: ICheckProxyOptions): Promise<Array<ITestP
     }
   }
   
-  async function testWebsite(url: string, proxy: string, regex: any, website: ICheckProxyWebsite): Promise<IGetResolveStats> {
+  async function testWebsite(url: string, proxy: string, data: any, headers: any, regex: any, website: ICheckProxyWebsite): Promise<IGetResolveStats> {
     const options: IGetOptions = {
-      headers: {
-        'User-Agent': 'Mozilla/4.0',
-        Accept: 'text/html',
-        Referer: 'http://www.google.com',
-        Connection: 'close'
-      },
+      headers: headers,
+      data:data,
       proxy,
       ignoreErrors: true
     }
@@ -81,7 +77,7 @@ export default async function(options: ICheckProxyOptions): Promise<Array<ITestP
       options.timeout = website.timeout
     }
   
-    const result = await get(url, options)
+    const result = await post(url, options)
     const html = result.payload
     
     if(regex) {
