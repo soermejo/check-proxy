@@ -52,19 +52,15 @@ function default_1(options) {
                 }
             };
         }
-        function testWebsite(url, proxy, regex, website) {
+        function testWebsite(url, proxy, data, headers, regex, website) {
             return tslib_1.__awaiter(this, void 0, void 0, function () {
                 var options, result, html;
                 return tslib_1.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
                             options = {
-                                headers: {
-                                    'User-Agent': 'Mozilla/4.0',
-                                    Accept: 'text/html',
-                                    Referer: 'http://www.google.com',
-                                    Connection: 'close'
-                                },
+                                headers: headers,
+                                data: data,
                                 proxy: proxy,
                                 ignoreErrors: true
                             };
@@ -74,7 +70,7 @@ function default_1(options) {
                             if (website.timeout) {
                                 options.timeout = website.timeout;
                             }
-                            return [4, get(url, options)];
+                            return [4, post(url, options)];
                         case 1:
                             result = _a.sent();
                             html = result.payload;
